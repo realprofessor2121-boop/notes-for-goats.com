@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes For Goats | 7 Day Music Business</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- 🚨 GOOGLE MODEL VIEWER SCRIPT (Required for 3D) 🚨 -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+
+    <style>
+        /* ========================================== */
+        /* CSS VARIABLES & RESET                      */
+        /* ========================================== */
+        :root {
+            --day0: #222222; 
+            --day1: #ff3b30; --day2: #ff9500; --day3: #ffcc00;
+            --day4: #34c759; --day5: #007aff; --day6: #af52de;
+            --day7: #ff2d55; --day8: #ffffff;
+            --bg-dark: #0a0a0a; --text-light: #f4f4f4;
+            --gold: #d4af37; --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --success: #34c759;
+            --sale-red: #ff3b30;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 900; letter-spacing: -0.5px; }
+        a { text-decoration: none; color: inherit; }
+
+        /* ========================================== */
+        /* NAVIGATION                                 */
+        /* ========================================== */
+        nav {
+            position: fixed; top: 0; width: 100%; height: 90px; padding: 0 5%; 
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(15px);
+            z-index: 1000; border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .logo-container { display: flex; align-items: center; cursor: pointer; height: 100%; transition: transform 0.3s ease; }
+        .logo-container:hover { transform: scale(1.05); }
+        .logo-container img { height: 75px; width: auto; object-fit: contain; filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5)); }
+        
+        .nav-links { display: flex; gap: 20px; align-items: center; height: 100%;}
+        .nav-links a { font-weight: 600; font-size: 0.95rem; transition: color 0.3s; cursor: pointer; position: relative; white-space: nowrap; }
+        .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background-color: var(--gold); transition: width 0.3s; }
+        .nav-links a:hover::after, .nav-links a.active-link::after { width: 100%; }
+        .nav-links a:hover, .nav-links a.active-link { color: var(--gold); }
+        
+        .btn-nav { background: var(--gold); color: black; padding: 10px 25px; border-radius: 30px; font-weight: 700; font-size: 0.9rem; transition: all 0.3s; border: none; cursor: pointer; white-space: nowrap; }
+        .btn-nav:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6); }
+
+        /* ========================================== */
+        /* PAGE ROUTING SYSTEM                        */
+        /* ========================================== */
+        .page { display: none; opacity: 0; transition: opacity 0.5s ease; }
+        .page.active { display: block; opacity: 1; animation: fadeInPage 0.5s ease forwards; }
+        @keyframes fadeInPage { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ========================================== */
+        /* PAGE 1: HOME / HERO                        */
+        /* ========================================== */
+        .hero {
+            min-height: 100vh; display: grid; grid-template-columns: 1fr 1.5fr 1fr; align-items: center; padding: 120px 4% 60px; 
+            background: radial-gradient(circle at center, #1a1a1a 0%, var(--bg-dark) 100%); gap: 10px;
+        }
+        .hero-left { display: flex; justify-content: center; align-items: center; }
+        .house-feature-img { width: 500%; max-width: 550px; object-fit: contain; transition: transform 0.4s ease; cursor: pointer; }
+        .house-feature-img:hover { transform: scale(1.02); }
+        .hero-center { display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; padding: 0 10px; }
+        .hero-main-logo { width: 100%; max-width: 480px; margin-bottom: 20px; filter: drop-shadow(0 0 40px rgba(212, 175, 55, 0.5)); }
+        .hero h1 { font-size: clamp(2.5rem, 4.5vw, 4rem); margin-bottom: 20px; background: linear-gradient(90deg, #fff 0%, var(--gold) 50%, #fff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; }
+        .hero p { font-size: 1.15rem; max-width: 550px; margin-bottom: 35px; color: #b0b0b0; font-weight: 300; }
+        .hero-7days-logo { height: 160px; width: auto; margin-bottom: 40px; filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.3)) brightness(1.2); transition: transform 0.3s ease; }
+        .hero-7days-logo:hover { transform: scale(1.05); }
+        .hero-right { display: flex; justify-content: center; align-items: center; }
+        .hero-avatar { width: 100%; max-width: 320px; animation: float 5s ease-in-out infinite; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)); mix-blend-mode: screen; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-20px); } 100% { transform: translateY(0px); } }
+
+        /* ========================================== */
+        /* SHARED SECTION STYLES                      */
+        /* ========================================== */
+        .section-container { padding: 120px 5% 80px; min-height: 100vh; }
+        .section-title { font-size: 2.5rem; margin-bottom: 30px; position: relative; display: inline-block; text-align: center; width: 100%;}
+        .section-title::after { content: ''; position: absolute; width: 80px; height: 4px; background: var(--gold); bottom: -10px; left: 50%; transform: translateX(-50%); border-radius: 2px; }
+
+        /* ========================================== */
+        /* SYLLABUS MAIN PAGE (VERTICAL GLASS CARDS)  */
+        /* ========================================== */
+        .timeline { position: relative; max-width: 1200px; margin: 40px auto 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .day-block { 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-radius: 24px; padding: 40px 20px; position: relative; border: 1px solid rgba(255, 255, 255, 0.08); 
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); cursor: pointer; overflow: hidden;
+        }
+        .day-block::before { 
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            background: radial-gradient(circle at 50% 0%, var(--accent) 0%, transparent 60%); opacity: 0.1; transition: opacity 0.5s ease; z-index: 0; pointer-events: none; 
+        }
+        .day-block:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 30px -10px var(--accent); }
+        .day-block:hover::before { opacity: 0.3; }
+
+        /* Day 0 Hover Fix */
+        .day-0:hover { border-color: #555; box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 30px -10px #555; }
+        .day-0 .btn-enter:hover { background: #555; border-color: #555; color: #fff; }
+        .day-0::before { background: radial-gradient(circle at 50% 0%, #555 0%, transparent 60%); }
+
+        .header-left { display: flex; flex-direction: column; align-items: center; gap: 15px; z-index: 2; margin-bottom: 25px; }
+        .header-image-container { width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .header-image-container img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8)); transition: transform 0.4s ease; }
+        .day-block:hover .header-image-container img { transform: scale(1.15) translateY(-5px); }
+        .header-text h3 { font-size: 1.8rem; color: #fff; margin-bottom: 5px; line-height: 1.1; letter-spacing: 1px; }
+        .day-badge { background: var(--accent); color: #fff; font-weight: 900; font-family: 'Montserrat'; padding: 6px 15px; border-radius: 20px; font-size: 0.8rem; letter-spacing: 2px; display: inline-block; margin-bottom: 10px; }
+        .day-0 .day-badge { background: #444; color: #fff; }
+        .day-8 .day-badge { background: #fff; color: #000; }
+
+        .btn-enter { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: transparent; color: var(--accent); font-family: 'Montserrat'; font-weight: 700; font-size: 1rem; padding: 12px 30px; border: 2px solid var(--accent); border-radius: 30px; transition: all 0.4s; cursor: pointer; z-index: 2; width: 90%; }
+        .btn-enter:hover { background: var(--accent); color: #000; box-shadow: 0 0 20px var(--accent); }
+        .day-0 .btn-enter { color: #fff; border-color: #555; }
+        .day-0 .btn-enter:hover { background: #555; border-color: #555; box-shadow: 0 0 20px #555; }
+
+        .day-0 { --accent: #222222; }
+        .day-1 { --accent: var(--day1); } .day-2 { --accent: var(--day2); }
+        .day-3 { --accent: var(--day3); } .day-4 { --accent: var(--day4); } .day-5 { --accent: var(--day5); }
+        .day-6 { --accent: var(--day6); } .day-7 { --accent: var(--day7); } .day-8 { --accent: var(--day8); }
+
+        /* ========================================== */
+        /* DAY DETAIL PAGES (STATIC HTML)             */
+        /* ========================================== */
+        .day-detail-container { max-width: 1100px; margin: 0 auto; }
+        .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--gold); font-weight: 600; cursor: pointer; margin-bottom: 20px; font-size: 1rem; transition: transform 0.3s; }
+        .back-btn:hover { transform: translateX(-5px); }
+
+        .detail-header { text-align: center; margin-bottom: 50px; border-bottom: 1px solid var(--glass-border); padding-bottom: 30px;}
+        .detail-header img { height: 100px; margin-bottom: 15px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8)); }
+        .detail-header h2 { font-size: 3rem; color: #fff; margin-bottom: 10px; }
+        
+        .chapter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        .chapter-card { background: #111; border-radius: 16px; border: 1px solid var(--glass-border); transition: all 0.4s ease; cursor: pointer; overflow: hidden; display: flex; flex-direction: column; position: relative; }
+        .chapter-card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 15px 30px rgba(0,0,0,0.8), 0 0 20px -5px var(--accent); }
+        .chapter-card-header { padding: 20px; background: rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .chapter-card-header h3 { font-size: 1.1rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.3; }
+        .day-0-page .chapter-card-header h3 { color: #fff; }
+        .day-8-page .chapter-card-header h3 { color: #000; }
+        .chapter-image-container { width: 100%; height: 180px; background: #0a0a0a; position: relative; overflow: hidden; }
+        .chapter-image-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .chapter-card:hover .chapter-image-container img { transform: scale(1.1); }
+        .chapter-image-container::after { content: 'IMAGE NOT FOUND'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #333; font-weight: bold; font-size: 1rem; z-index: 0; }
+        .chapter-image-container img { z-index: 1; position: relative;}
+
+        /* ========================================== */
+        /* NEW EXCELLENT 3D STORE DESIGN              */
+        /* ========================================== */
+        .store-container { max-width: 1200px; margin: 0 auto; }
+        
+        .promo-banner {
+            background: linear-gradient(90deg, rgba(212, 175, 55, 0.15) 0%, rgba(255, 59, 48, 0.15) 100%);
+            border: 1px solid var(--gold);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .promo-banner::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 3s infinite;
+        }
+        @keyframes shine { 100% { left: 200%; } }
+
+        .promo-banner h3 { font-size: 2rem; color: var(--gold); margin-bottom: 10px; }
+        .promo-banner p { color: #ccc; font-size: 1.1rem; }
+        .promo-banner span { color: var(--sale-red); font-weight: bold; font-size: 1.3rem; }
+
+        .store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        
+        .product-card {
+            background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px;
+            overflow: hidden; transition: all 0.4s ease; display: flex; flex-direction: column; position: relative;
+        }
+        
+        .product-card:hover { border-color: var(--gold); transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 20px rgba(212, 175, 55, 0.2); }
+
+        .sale-badge {
+            position: absolute; top: 15px; right: 15px; background: var(--sale-red); color: white;
+            font-weight: 800; font-family: 'Montserrat'; padding: 5px 15px; border-radius: 20px;
+            font-size: 0.8rem; z-index: 10; box-shadow: 0 4px 10px rgba(255, 59, 48, 0.5);
+            animation: pulse-sale 2s infinite;
+        }
+
+        @keyframes pulse-sale { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+        .product-img-wrapper { width: 100%; height: 250px; overflow: hidden; background: #111; position: relative; border-bottom: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; }
+        .product-img-wrapper img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.6s ease; }
+        .product-card:hover .product-img-wrapper img { transform: scale(1.1); }
+
+        .product-info { padding: 25px; flex: 1; display: flex; flex-direction: column; }
+        .product-category { font-size: 0.8rem; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .product-info h3 { font-size: 1.3rem; color: #fff; margin-bottom: 10px; }
+        .product-info p { color: #aaa; font-size: 0.9rem; margin-bottom: 20px; flex: 1; line-height: 1.5;}
+
+        .product-price { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .old-price { text-decoration: line-through; color: #666; font-size: 1.1rem; }
+        .new-price { color: var(--gold); font-size: 1.8rem; font-weight: 900; font-family: 'Montserrat'; text-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
+
+        .product-actions { display: flex; flex-direction: column; gap: 10px; }
+        
+        .btn-3d {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            width: 100%; padding: 14px; background: rgba(255,255,255,0.05); 
+            color: #fff; border: 2px solid rgba(255,255,255,0.2); border-radius: 12px;
+            font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.3s;
+        }
+        .btn-3d:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+
+        .btn-buy-store {
+            display: block; width: 100%; padding: 15px; background: transparent; color: var(--gold);
+            border: 2px solid var(--gold); border-radius: 12px; font-weight: 700; font-size: 1rem; 
+            cursor: pointer; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        .btn-buy-store:hover { background: var(--gold); color: #000; box-shadow: 0 0 20px rgba(212, 175, 55, 0.6); }
+
+        /* ========================================== */
+        /* 3D MODEL VIEWER MODAL                      */
+        /* ========================================== */
+        #viewerModal .modal-content {
+            max-width: 900px; width: 90%; height: 80vh;
+            background: #0d0d0d; padding: 0; display: flex; flex-direction: column;
+            border: 2px solid var(--gold); overflow: hidden;
+        }
+
+        .viewer-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 20px; background: #111; border-bottom: 1px solid #333;
+        }
+        .viewer-header h3 { color: var(--gold); font-size: 1.2rem; margin: 0; }
+        
+        .viewer-controls { display: flex; gap: 10px; }
+        .viewer-btn {
+            background: transparent; color: #ccc; border: 1px solid #444;
+            padding: 8px 15px; border-radius: 8px; cursor: pointer; font-size: 0.9rem;
+            transition: 0.3s; font-family: 'Poppins';
+        }
+        .viewer-btn:hover { background: #333; color: #fff; border-color: var(--gold); }
+
+        model-viewer {
+            width: 100%; height: 100%; background: #1a1a1a; flex: 1;
+            --poster-color: transparent;
+            position: relative;
+        }
+
+        /* Custom Error Message inside Viewer */
+        .viewer-error-msg {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            text-align: center; color: #ff3b30; background: rgba(0,0,0,0.9); padding: 30px;
+            border-radius: 15px; display: none; z-index: 10; width: 80%; border: 1px solid #ff3b30;
+        }
+        
+        .viewer-error-msg h4 { font-size: 1.2rem; margin-bottom: 15px; }
+        .viewer-error-msg p { font-size: 1rem; color: #ddd; margin-bottom: 15px; }
+        .viewer-error-msg code { background: #333; padding: 5px 10px; border-radius: 5px; color: var(--gold); font-weight: bold; }
+
+        /* ========================================== */
+        /* GAMES, MUSIC GRIDS                         */
+        /* ========================================== */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 40px auto 0; }
+        .card { background: var(--glass); border: 1px solid var(--glass-border); padding: 25px; border-radius: 20px; transition: 0.4s; display: flex; flex-direction: column; text-align: left; }
+        .card:hover { border-color: var(--gold); transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
+        .card img { width: 100%; height: 200px; border-radius: 15px; margin-bottom: 20px; object-fit: cover; background: #151515; border: 1px solid #333; }
+        .card h3 { font-size: 1.2rem; margin-bottom: 10px; color: var(--gold); }
+        .card p { color: #aaa; font-size: 0.9rem; margin-bottom: 20px; flex: 1; }
+        .btn-action { display: block; width: 100%; padding: 14px; background: var(--gold); color: black; font-weight: 700; border-radius: 12px; border: none; cursor: pointer; transition: all 0.3s; font-size: 1rem; text-align: center; font-family: 'Montserrat', sans-serif; }
+        .btn-action:hover { background: #fff; transform: scale(1.02); }
+
+        .game-icon { font-size: 4rem; text-align: center; padding: 40px; border-radius: 15px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; }
+        .bg-spaces { background: linear-gradient(135deg, #200122, #6f0000); }
+        .bg-gatekeepers { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); }
+        .bg-santa { background: linear-gradient(135deg, #8E0E00, #1F1C18); }
+        .bg-money-talk { background: linear-gradient(135deg, #134E5E, #71B280); }
+        .bg-down-game { background: linear-gradient(135deg, #41295a, #2F0743); }
+        .bg-yore-game { background: linear-gradient(135deg, #b92b27, #1565C0); }
+        .bg-coins { background: linear-gradient(135deg, #B79891, #94716B); }
+        .bg-piano { background: linear-gradient(135deg, #1e1e1e, #333333); }
+        .bg-guitar { background: linear-gradient(135deg, #3d1e1e, #6b2a2a); }
+        .bg-drums { background: linear-gradient(135deg, #1e3d1e, #2a6b2a); }
+        .bg-synth { background: linear-gradient(135deg, #1e2a4a, #2a3a6b); }
+        .bg-bass { background: linear-gradient(135deg, #4a1e3d, #6b2a5a); }
+        .bg-mixing { background: linear-gradient(135deg, #3d3d1e, #6b6b2a); }
+
+        /* ========================================== */
+        /* NFG CHARACTERS PAGE                        */
+        /* ========================================== */
+        .character-card {
+            background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px;
+            overflow: hidden; transition: all 0.4s ease; display: flex; flex-direction: column; position: relative;
+        }
+        .character-card:hover {
+            border-color: var(--char-accent, var(--gold));
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.7), 0 0 30px -5px var(--char-accent, var(--gold));
+        }
+        .character-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 0%, var(--char-accent, var(--gold)) 0%, transparent 60%);
+            opacity: 0.08; transition: opacity 0.4s ease; pointer-events: none; z-index: 0;
+        }
+        .character-card:hover::before { opacity: 0.22; }
+
+        .character-image-container {
+            width: 100%; height: 340px; position: relative; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            background: radial-gradient(circle at 50% 35%, #1d1d1d 0%, #0a0a0a 100%);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .character-image-container img {
+            max-width: 85%; max-height: 85%; object-fit: contain; position: relative; z-index: 1;
+            transition: transform 0.5s ease;
+            filter: drop-shadow(0 20px 35px rgba(0,0,0,0.9));
+        }
+        .character-card:hover .character-image-container img { transform: scale(1.08) translateY(-6px); }
+
+        .character-info { padding: 25px; text-align: center; flex: 1; display: flex; flex-direction: column; position: relative; z-index: 1; }
+        .character-info h3 { font-size: 1.7rem; color: var(--char-accent, var(--gold)); margin-bottom: 6px; letter-spacing: 1px; }
+        .character-role { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2.5px; color: #888; margin-bottom: 15px; font-weight: 600; }
+        .character-info p { color: #aaa; font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; flex: 1; }
+
+        .character-info .product-price { justify-content: center; margin-bottom: 15px; }
+
+        /* ========================================== */
+        /* MODALS (AUTH & PAYMENT) & MUSIC PLAYER     */
+        /* ========================================== */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); z-index: 2000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-content { background: #111; border: 1px solid var(--glass-border); border-top: 4px solid var(--gold); border-radius: 20px; width: 100%; max-width: 480px; padding: 40px; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 40px rgba(212, 175, 55, 0.1); transform: translateY(20px); transition: transform 0.3s ease; max-height: 90vh; overflow-y: auto; }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; color: #888; cursor: pointer; transition: 0.3s; z-index: 10;}
+        .close-modal:hover { color: var(--gold); }
+        .modal-tabs { display: flex; margin-bottom: 30px; border-bottom: 1px solid #333; }
+        .modal-tab { flex: 1; padding: 10px; text-align: center; font-weight: 700; color: #888; cursor: pointer; transition: 0.3s; font-family: 'Montserrat'; }
+        .modal-tab.active { color: var(--gold); border-bottom: 2px solid var(--gold); }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; font-size: 0.85rem; color: #aaa; margin-bottom: 8px; font-weight: 600; }
+        .form-group input { width: 100%; padding: 14px; background: rgba(255,255,255,0.03); border: 1px solid #333; border-radius: 8px; color: #fff; font-family: 'Poppins'; outline: none; transition: 0.3s; font-size: 0.95rem; }
+        .form-group input:focus { border-color: var(--gold); background: rgba(255,255,255,0.08); box-shadow: 0 0 10px rgba(212, 175, 55, 0.2); }
+        .password-wrapper { position: relative; display: flex; align-items: center; }
+        .password-wrapper input { padding-right: 45px; }
+        .toggle-password { position: absolute; right: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #ccc; transition: 0.3s; user-select: none; }
+        .toggle-password:hover { color: var(--gold); }
+        .toggle-password svg { width: 20px; height: 20px; }
+        .forgot-link { display: block; text-align: right; font-size: 0.8rem; color: var(--gold); margin-top: 8px; cursor: pointer; }
+        .forgot-link:hover { text-decoration: underline; }
+        .secure-badge { display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(52, 199, 89, 0.1); color: var(--success); padding: 10px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; margin-bottom: 20px; border: 1px solid rgba(52, 199, 89, 0.3); }
+        .card-icons { display: flex; gap: 10px; justify-content: center; margin-bottom: 25px; opacity: 0.8; }
+        .payment-summary { background: rgba(212, 175, 55, 0.05); padding: 20px; border-radius: 12px; margin-bottom: 25px; text-align: center; border: 1px dashed var(--gold); }
+        .payment-summary h4 { color: var(--gold); font-size: 1.8rem; font-family: 'Montserrat'; }
+
+        #musicPlayerModal .modal-content { max-width: 500px; text-align: center; border-top-color: var(--day1); background: radial-gradient(circle at top, #2a0a0a 0%, #111 80%); }
+        .player-visual { position: relative; width: 200px; height: 200px; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; }
+        .vinyl-record { width: 100%; height: 100%; border-radius: 50%; background: repeating-radial-gradient(#111, #111 5px, #222 6px, #111 7px); position: absolute; box-shadow: 0 0 30px rgba(255, 59, 48, 0.4), inset 0 0 20px rgba(0,0,0,1); animation: spin 4s linear infinite; animation-play-state: paused; }
+        .vinyl-record::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; background: var(--gold); border-radius: 50%; border: 4px solid #000; }
+        .player-logo-overlay { position: absolute; width: 80%; z-index: 2; filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8)); animation: pulse-glow 2s ease-in-out infinite; animation-play-state: paused; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes pulse-glow { 0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5)); } 50% { transform: scale(1.05); filter: drop-shadow(0 0 25px rgba(255, 59, 48, 0.9)); } 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5)); } }
+        .playing .vinyl-record { animation-play-state: running; }
+        .playing .player-logo-overlay { animation-play-state: running; }
+        #playerTitle { font-size: 1.5rem; color: var(--gold); margin-bottom: 20px; text-transform: uppercase; }
+        audio { width: 100%; margin-bottom: 20px; outline: none; }
+        audio::-webkit-media-controls-panel { background-color: var(--gold); }
+        audio::-webkit-media-controls-play-button { background-color: #000; border-radius: 50%; }
+
+        /* ========================================== */
+        /* RESPONSIVE                                 */
+        /* ========================================== */
+        @media (max-width: 1100px) {
+            .nav-links { gap: 15px; }
+            .nav-links a { font-size: 0.85rem; }
+        }
+        @media (max-width: 1024px) {
+            .hero { display: flex; flex-direction: column; justify-content: center; padding-top: 140px; gap: 30px; }
+            .hero-left, .hero-right { justify-content: center; width: 100%; }
+            .house-feature-img { max-width: 450px; width: 100%; }
+            .hero-avatar { max-width: 250px; }
+            .hero-center { order: -1; width: 100%; margin-bottom: 20px; }
+        }
+        @media (max-width: 768px) {
+            nav { flex-direction: column; height: auto; padding: 15px; gap: 15px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 15px; } 
+            .modal-content { padding: 25px; margin: 15px; }
+            .logo-container img { height: 60px; }
+            .timeline { grid-template-columns: 1fr; }
+            .day-block { padding: 30px 15px; }
+            .detail-header h2 { font-size: 2rem; }
+            .chapter-grid { grid-template-columns: 1fr; }
+            #viewerModal .modal-content { width: 95%; height: 70vh; }
+            .viewer-header { flex-direction: column; gap: 10px; }
+            .character-image-container { height: 260px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!-- NAVIGATION                                 -->
+    <!-- ========================================== -->
+    <nav>
+        <div class="logo-container" onclick="showPage('home')">
+            <img src="logo.png.png" alt="Notes For Goats Logo">
+        </div>
+        <div class="nav-links">
+            <a onclick="showPage('home')" id="nav-home" class="active-link">Home</a>
+            <a onclick="showPage('roadmap')" id="nav-roadmap">The Roadmap</a>
+            <a onclick="showPage('syllabus')" id="nav-syllabus">Syllabus</a>
+            <a onclick="showPage('characters')" id="nav-characters">NFG Characters</a>
+            <a onclick="showPage('store')" id="nav-store">Store</a>
+            <a onclick="showPage('games')" id="nav-games">Games</a>
+            <a onclick="showPage('play-music')" id="nav-play-music">Play Music</a>
+            <a onclick="showPage('enjoy-music')" id="nav-enjoy-music">Enjoy the Music</a>
+        </div>
+        <button class="btn-nav" onclick="openModal('authModal')">Get Started</button>
+    </nav>
+
+    <!-- ========================================== -->
+    <!-- PAGE 1: HOME                               -->
+    <!-- ========================================== -->
+    <div id="page-home" class="page active">
+        <section class="hero">
+            <div class="hero-left">
+                <img src="house.png" alt="The Estate" class="house-feature-img" onclick="showPage('roadmap')">
+            </div>
+            <div class="hero-center">
+                <img src="logo.png.png" alt="Notes For Goats" class="hero-main-logo">
+                <h1>LET'S GO ON A JOURNEY</h1>
+                <p>Transform your mindset, master the music business, and build generational wealth in just 8 days. From Day 0 to GOAT status.</p>
+                <img src="7days.png" alt="7 Day Music Business" class="hero-7days-logo">
+                <button class="btn-nav" style="padding: 22px 60px; font-size: 1.3rem; border-radius: 40px;" onclick="openModal('authModal')">Start Day 0 For Free</button>
+            </div>
+            <div class="hero-right">
+                <img src="file.webp" alt="Andre Deyo" class="hero-avatar">
+            </div>
+        </section>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PAGE 2: ROADMAP                            -->
+    <!-- ========================================== -->
+    <div id="page-roadmap" class="page">
+        <section class="section-container">
+            <h2 class="section-title">The Master Plan</h2>
+            <div style="text-align: center;">
+                <div class="roadmap-container" style="display: inline-block; cursor: pointer;" onclick="window.open('6.jpg', '_blank')">
+                    <img src="6.jpg" alt="Syllabus Roadmap" style="max-width: 100%; border-radius: 20px; border: 2px solid var(--gold);">
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PAGE 3: SYLLABUS (VERTICAL GLASS CARDS)    -->
+    <!-- ========================================== -->
+    <div id="page-syllabus" class="page">
+        <section class="section-container">
+            <h2 class="section-title">Detailed Syllabus</h2>
+            <p style="text-align: center; color: #aaa; margin-bottom: 50px;">Choose your day. Click Enter to explore the chapters.</p>
+            
+            <div class="timeline">
+                <!-- DAY 0 -->
+                <div class="day-block day-0" onclick="showPage('day-0')">
+                    <div class="header-left">
+                        <div class="header-image-container"><img src="13.png" alt="Cap"></div>
+                        <div class="header-text"><span class="day-badge">DAY 0</span><h3>The Mindset</h3></div>
+                    </div>
+                    <button class="btn-enter">Enter Day 0 <span>→</span></button>
+                </div>
+                <!-- DAY 1 -->
+                <div class="day-block day-1" onclick="showPage('day-1')">
+                    <div class="header-left">
+                        <div class="header-image-container"><img src="21.png" alt="Cap"></div>
+                        <div class="header-text"><span class="day-badge">DAY 1</span><h3>Self Development</h3></div>
+                    </div>
+                    <button class="btn-enter">Enter Day 1 <span>→</span></button>
+                </div>
+                <!-- DAY 2 -->
+                <div class="day-block day-2" onclick="showPage('day-2')">
+                    <div class="header-left">
+                        <div class="header-image-container"><img src="22.png" alt="Cap"></div>
+                        <div class="header-text"><span class="day-badge">DAY 2</span><h3>Foundations</h3></div>
+                    </div>
+                    <button class="btn-enter">Enter Day 2 <span>→</span></button>
+                </div>
+                <!-- DAY 3 -->
+                <div class="day-block day-3" onclick="showPage('day-3')">
+                    <div class="header-left">
+                        <div class="header-image-container"><img src="23.png" alt="Cap"></div>
+                        <div class="header-text"><span class="day-badge">DAY 3</span><h3>Business Admin</h3></div>
+                    </div>
+                    <button class="btn-enter">Enter Day 3 <span>→</span></button>
+                </div>
+                <!-- DAY 4 -->
+                <div class="day-block day-4" onclick="showPage('day-4')">
+                    <div class="header-left">
+                        <div class="header-image-container"><img src="24.png" alt="Cap"></div>
+                        <div class="header-text"><span class="day-badge">DAY 4</span><h3>Production</h3></div>
+                    </div>
+                    <button class="btn-enter">Enter Day 4 <span>→</span></button>
+                </div>
+                <!-- DAY 5 -->
+                <div class="day-block day-5" onclick="showPage('day-5')">
+                    <div class="header-left">
+                        <div class="header-image-container"><img src="25.png" alt="Cap"></div>
+                        <div class="header-text"><span class="day-badge">DAY 5</span><h3>Distribution</h3></div>
+                    </div>
+                    <button class="btn-enter">Enter Day 5 <span>→</span></button>
+                </div>
+                <!-- DAY 6 -->
+                <div class="day-block day-6" onclick="showPage('day-6')">
+                    <div class="header-left">
+                        <div class="header-image-container"><img src="26.png" alt="Cap"></div>
+                        <div class="header-text"><span class="day-badge">DAY 6</span><h3>Marketing</h3></div>
+                    </div>
+                    <button class="btn-enter">Enter Day 6 <span>→</span></button>
+                </div>
+                <!-- DAY 7 -->
+                <div class="day-block day-7" onclick="showPage('day-7')">
+                    <div class="header-left">
+                        <div class="header-image-container"><img src="27.png" alt="Cap"></div>
+                        <div class="header-text"><span class="day-badge">DAY 7</span><h3>Growth</h3></div>
+                    </div>
+                    <button class="btn-enter">Enter Day 7 <span>→</span></button>
+                </div>
+                <!-- DAY 8 -->
+                <div class="day-block day-8" onclick="showPage('day-8')">
+                    <div class="header-left">
+                        <div class="header-image-container"><img src="28.png" alt="Cap"></div>
+                        <div class="header-text"><span class="day-badge">DAY 8</span><h3>The Legacy</h3></div>
+                    </div>
+                    <button class="btn-enter">Enter Day 8 <span>→</span></button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- DAY 0 TO 8 PAGES                           -->
+    <!-- ========================================== -->
+    <div id="page-day-0" class="page day-0-page">
+        <section class="section-container">
+            <div class="day-detail-container">
+                <div class="back-btn" onclick="showPage('syllabus')">← Back to Syllabus</div>
+                <div class="detail-header">
+                    <img src="13.png" alt="Day 0 Cap">
+                    <h2 style="color: #ccc;">Day 0: The Mindset</h2>
+                </div>
+                <div class="chapter-grid">
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>START FROM ZERO</h3></div><div class="chapter-image-container"><img src="SUB_START_ZERO.jpg" alt="Start From Zero"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>THE RAT RACE</h3></div><div class="chapter-image-container"><img src="rat.png" alt="The Rat Race"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>THINKING MORE</h3></div><div class="chapter-image-container"><img src="thinkingmore.jpg" alt="Thinking More"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>UP AT NIGHT</h3></div><div class="chapter-image-container"><img src="upatnight.jpg" alt="Up At Night"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>NIGHTMARE/DREAM</h3></div><div class="chapter-image-container"><img src="nightmaredream.jpg" alt="Nightmare"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>WAKE UP MOTIVATED</h3></div><div class="chapter-image-container"><img src="wakeupmotivated.jpg" alt="Wake Up"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>WALK NEW ROAD</h3></div><div class="chapter-image-container"><img src="walknewroad.jpg" alt="Walk New Road"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>PLAN OF ACTION</h3></div><div class="chapter-image-container"><img src="planofaction.png" alt="Plan of Action"></div></div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div id="page-day-1" class="page day-1-page">
+        <section class="section-container">
+            <div class="day-detail-container">
+                <div class="back-btn" onclick="showPage('syllabus')">← Back to Syllabus</div>
+                <div class="detail-header">
+                    <img src="21.png" alt="Day 1 Cap">
+                    <h2 style="color: var(--day1);">Day 1: Self Development</h2>
+                </div>
+                <div class="chapter-grid">
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>LOOK AT YOU</h3></div><div class="chapter-image-container"><img src="lookatyou.jpg" alt="Look At You"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>TARGET</h3></div><div class="chapter-image-container"><img src="target.jpg" alt="Target"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>BRAINS</h3></div><div class="chapter-image-container"><img src="brains.jpg" alt="Brains"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>BODY</h3></div><div class="chapter-image-container"><img src="body.jpg" alt="Body"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>FOOD</h3></div><div class="chapter-image-container"><img src="food.jpg" alt="Food"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>WHAT'S INSIDE</h3></div><div class="chapter-image-container"><img src="whatsinside.jpg" alt="What's Inside"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>LIGHTS. CAMERA</h3></div><div class="chapter-image-container"><img src="lightscamera.jpg" alt="Lights Camera"></div></div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div id="page-day-2" class="page day-2-page">
+        <section class="section-container">
+            <div class="day-detail-container">
+                <div class="back-btn" onclick="showPage('syllabus')">← Back to Syllabus</div>
+                <div class="detail-header">
+                    <img src="22.png" alt="Day 2 Cap">
+                    <h2 style="color: var(--day2);">Day 2: Foundations</h2>
+                </div>
+                <div class="chapter-grid">
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>I.T.M. INVESTMENT</h3></div><div class="chapter-image-container"><img src="tminvesment.jpg" alt="ITM"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>FORMULA TO SUCCEED</h3></div><div class="chapter-image-container"><img src="formulatosucceed.jpg" alt="Formula"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>WHAT IS MUSIC BIZ</h3></div><div class="chapter-image-container"><img src="whatismusicbiz.jpg" alt="Music Biz"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>LABEL STRUCTURE</h3></div><div class="chapter-image-container"><img src="labelstructure.jpg" alt="Label"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>MEET THE AUTHOR</h3></div><div class="chapter-image-container"><img src="meettheauthor.jpg" alt="Author"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>PAC MAN</h3></div><div class="chapter-image-container"><img src="pacman.jpg" alt="Pac Man"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>COLLABORATE</h3></div><div class="chapter-image-container"><img src="collaborate.jpg" alt="Collaborate"></div></div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div id="page-day-3" class="page day-3-page">
+        <section class="section-container">
+            <div class="day-detail-container">
+                <div class="back-btn" onclick="showPage('syllabus')">← Back to Syllabus</div>
+                <div class="detail-header">
+                    <img src="23.png" alt="Day 3 Cap">
+                    <h2 style="color: var(--day3);">Day 3: Business Admin</h2>
+                </div>
+                <div class="chapter-grid">
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>LLC</h3></div><div class="chapter-image-container"><img src="llc.jpg" alt="LLC"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>BANK</h3></div><div class="chapter-image-container"><img src="bank.jpg" alt="Bank"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>PROTECTIONS</h3></div><div class="chapter-image-container"><img src="protections.jpg" alt="Protections"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>ROYALTIES</h3></div><div class="chapter-image-container"><img src="royalties.jpg" alt="Royalties"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>INVENTORY</h3></div><div class="chapter-image-container"><img src="inventory.jpg" alt="Inventory"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>INVOICES</h3></div><div class="chapter-image-container"><img src="invoices.jpg" alt="Invoices"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>AI</h3></div><div class="chapter-image-container"><img src="ai.jpg" alt="AI"></div></div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div id="page-day-4" class="page day-4-page">
+        <section class="section-container">
+            <div class="day-detail-container">
+                <div class="back-btn" onclick="showPage('syllabus')">← Back to Syllabus</div>
+                <div class="detail-header">
+                    <img src="24.png" alt="Day 4 Cap">
+                    <h2 style="color: var(--day4);">Day 4: Production</h2>
+                </div>
+                <div class="chapter-grid">
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>STUDIO LAYOUT</h3></div><div class="chapter-image-container"><img src="studiolayout.jpg" alt="Studio"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>PADS</h3></div><div class="chapter-image-container"><img src="pads.jpg" alt="Pads"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>DAW SHORTCUTS</h3></div><div class="chapter-image-container"><img src="dawshortcuts.jpg" alt="DAW"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>ENVIROMENT</h3></div><div class="chapter-image-container"><img src="enviroment.jpg" alt="Environment"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>MIX MUSIC</h3></div><div class="chapter-image-container"><img src="mixmusic.jpg" alt="Mix Music"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>RECORD VOCALS</h3></div><div class="chapter-image-container"><img src="recordvocals.jpg" alt="Vocals"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>MAKE MUSIC</h3></div><div class="chapter-image-container"><img src="makemusic.jpg" alt="Make Music"></div></div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div id="page-day-5" class="page day-5-page">
+        <section class="section-container">
+            <div class="day-detail-container">
+                <div class="back-btn" onclick="showPage('syllabus')">← Back to Syllabus</div>
+                <div class="detail-header">
+                    <img src="25.png" alt="Day 5 Cap">
+                    <h2 style="color: var(--day5);">Day 5: Distribution</h2>
+                </div>
+                <div class="chapter-grid">
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>MARTERING</h3></div><div class="chapter-image-container"><img src="mastering.jpg" alt="Mastering"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>ISRC & UPC</h3></div><div class="chapter-image-container"><img src="isrcupc.jpg" alt="ISRC"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>SPLIT SHEET & ™</h3></div><div class="chapter-image-container"><img src="forartist.jpg" alt="Split Sheet"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>FOR ARTISTS</h3></div><div class="chapter-image-container"><img src="forartist.jpg" alt="Artists"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>SONG STORAGE</h3></div><div class="chapter-image-container"><img src="songstorage.jpg" alt="Storage"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>UPLOAD TO DSP & SF</h3></div><div class="chapter-image-container"><img src="uploadtodsp.jpg" alt="Upload"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>QUALITY CHECK</h3></div><div class="chapter-image-container"><img src="qualitycheck.jpg" alt="Quality"></div></div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div id="page-day-6" class="page day-6-page">
+        <section class="section-container">
+            <div class="day-detail-container">
+                <div class="back-btn" onclick="showPage('syllabus')">← Back to Syllabus</div>
+                <div class="detail-header">
+                    <img src="26.png" alt="Day 6 Cap">
+                    <h2 style="color: var(--day6);">Day 6: Marketing</h2>
+                </div>
+                <div class="chapter-grid">
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>MARKETING 101</h3></div><div class="chapter-image-container"><img src="marketing101.jpg" alt="Marketing"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>SOCIAL MEDIA MRK</h3></div><div class="chapter-image-container"><img src="socialmediamrk.jpg" alt="Social"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>RADIO & TV & MONITOR</h3></div><div class="chapter-image-container"><img src="radiotvmonitor.jpg" alt="Radio"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>LIVE SHOWS & TOURS</h3></div><div class="chapter-image-container"><img src="liveshowtours.jpg" alt="Live Shows"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>STRAGEY & RELEASE</h3></div><div class="chapter-image-container"><img src="strageyrelease.jpg" alt="Strategy"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>ELEVATOR PITCH</h3></div><div class="chapter-image-container"><img src="elevatorpitch.jpg" alt="Pitch"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>BLOCKCHAIN NFTS</h3></div><div class="chapter-image-container"><img src="blockchainnfts.jpg" alt="NFT"></div></div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div id="page-day-7" class="page day-7-page">
+        <section class="section-container">
+            <div class="day-detail-container">
+                <div class="back-btn" onclick="showPage('syllabus')">← Back to Syllabus</div>
+                <div class="detail-header">
+                    <img src="27.png" alt="Day 7 Cap">
+                    <h2 style="color: var(--day7);">Day 7: Growth</h2>
+                </div>
+                <div class="chapter-grid">
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>TOURS</h3></div><div class="chapter-image-container"><img src="tours.jpg" alt="Tours"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>MONTLY LISTENERS</h3></div><div class="chapter-image-container"><img src="monthlylisteners.jpg" alt="Listeners"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>MEDIAN INCOME</h3></div><div class="chapter-image-container"><img src="medianincome.jpg" alt="Income"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>PROGRESS BAR</h3></div><div class="chapter-image-container"><img src="progressbar.jpg" alt="Progress"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>MAP OF FOLLOWERS</h3></div><div class="chapter-image-container"><img src="mapoffollowers.jpg" alt="Map"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>PLAGUES RED CARPET</h3></div><div class="chapter-image-container"><img src="plaguesredcarpet.jpg" alt="Red Carpet"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>YOU DID IT</h3></div><div class="chapter-image-container"><img src="youdidit.jpg" alt="You Did It"></div></div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div id="page-day-8" class="page day-8-page">
+        <section class="section-container">
+            <div class="day-detail-container">
+                <div class="back-btn" onclick="showPage('syllabus')">← Back to Syllabus</div>
+                <div class="detail-header">
+                    <img src="28.png" alt="Day 8 Cap">
+                    <h2 style="color: #fff;">Day 8: The Legacy</h2>
+                </div>
+                <div class="chapter-grid">
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>LEGACY</h3></div><div class="chapter-image-container"><img src="legacy.jpg" alt="Legacy"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>GEN. WEALTH</h3></div><div class="chapter-image-container"><img src="genwealth.jpg" alt="Wealth"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>ABUNDANCE</h3></div><div class="chapter-image-container"><img src="abundance.jpg" alt="Abundance"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>MY PRECIOUS</h3></div><div class="chapter-image-container"><img src="myprecious.jpg" alt="Precious"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>SCALE UP</h3></div><div class="chapter-image-container"><img src="scaleup.jpg" alt="Scale Up"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>TEDTALKS</h3></div><div class="chapter-image-container"><img src="tedtalks.jpg" alt="TED Talks"></div></div>
+                    <div class="chapter-card"><div class="chapter-card-header"><h3>NEW PROPERTIES</h3></div><div class="chapter-image-container"><img src="newproperties.png" alt="Properties"></div></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PAGE 4: 3D STORE (AUTO-GENERATED)          -->
+    <!-- ========================================== -->
+    <div id="page-store" class="page">
+        <section class="section-container">
+            <h2 class="section-title">The 3D Asset Store</h2>
+            <p style="text-align: center; color: #aaa; margin-bottom: 40px;">Premium 3D Models, Studio Gear, and Home Assets for Creators.</p>
+            
+            <div class="store-container">
+                
+                <!-- Promo Banner -->
+                <div class="promo-banner">
+                    <h3>🔥 MEGA 3D BUNDLE SALE 🔥</h3>
+                    <p>Get the entire Studio + Home Collection today. <span>Up to 50% OFF!</span></p>
+                </div>
+
+                <!-- 🚨 THE STORE GRID IS AUTO-FILLED BY JAVASCRIPT BELOW 🚨 -->
+                <div class="store-grid" id="storeGrid">
+                    <!-- Products will be injected here -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PAGE 5: GAMES                              -->
+    <!-- ========================================== -->
+    <div id="page-games" class="page">
+        <section class="section-container">
+            <h2 class="section-title">Game Center</h2>
+            <p style="text-align: center; color: #aaa; margin-bottom: 40px;">Play the official Notes For Goats games. Learn, earn, and have fun.</p>
+            
+            <div class="grid-container">
+                <div class="card"><div class="game-icon bg-spaces">🚀</div><h3>Spaces Playable</h3><p>Explore the NFT spaces and play the interactive experience.</p><a href="https://spaces-playable.mrdeyomusic.chatgpt.site/" target="_blank" class="btn-action">Play Now</a></div>
+                <div class="card"><div class="game-icon bg-gatekeepers">👻</div><h3>NFG Gatekeepers</h3><p>The classic reborn. Collect rooms and master the knowledge.</p><a href="https://nfg-gatekeepers.mrdeyomusic.chatgpt.site" target="_blank" class="btn-action">Play Now</a></div>
+                <div class="card"><div class="game-icon bg-santa">🎅</div><h3>Helping Santa</h3><p>Deliver NFG gifts to every house in this festive run.</p><a href="https://nfg-helping-santa.mrdeyomusic.chatgpt.site" target="_blank" class="btn-action">Play Now</a></div>
+                <div class="card"><div class="game-icon bg-money-talk">💸</div><h3>Money Talk</h3><p>Master the language of money in a fun, interactive way.</p><a href="https://nfg-money-talk.mrdeyomusic.chatgpt.site" target="_blank" class="btn-action">Play Now</a></div>
+                <div class="card"><div class="game-icon bg-down-game">⬇️</div><h3>Down Game</h3><p>Test your reflexes. How long can you keep going down?</p><a href="https://nfg-down-game.mrdeyomusic.chatgpt.site/" target="_blank" class="btn-action">Play Now</a></div>
+                <div class="card"><div class="game-icon bg-yore-game">📜</div><h3>Yore Game</h3><p>Choose the correct word, learn grammar, and win big.</p><a href="https://nfg-yore-game.mrdeyomusic.chatgpt.site/" target="_blank" class="btn-action">Play Now</a></div>
+                <div class="card"><div class="game-icon bg-coins">🪙</div><h3>Money Talk Coins</h3><p>Hear money in your language, or learn English alongside it.</p><a href="https://money-talk-coins.mrdeyomusic.chatgpt.site/" target="_blank" class="btn-action">Play Now</a></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PAGE 6: PLAY MUSIC                         -->
+    <!-- ========================================== -->
+    <div id="page-play-music" class="page">
+        <section class="section-container">
+            <h2 class="section-title">Play Music</h2>
+            <p style="text-align: center; color: #aaa; margin-bottom: 50px;">Choose your instrument and start creating your next hit.</p>
+            
+            <div class="grid-container">
+                <div class="card" onclick="window.open('https://nfg-instruments-and-mixing.mrdeyomusic.chatgpt.site/', '_blank')">
+                    <div class="game-icon bg-piano">🎹</div>
+                    <h3>Piano</h3>
+                    <p>Play chords, melodies, and compose with our virtual piano.</p>
+                    <button class="btn-action">Launch Piano</button>
+                </div>
+                <div class="card" onclick="window.open('https://nfg-instruments-and-mixing.mrdeyomusic.chatgpt.site/', '_blank')">
+                    <div class="game-icon bg-guitar">🎸</div>
+                    <h3>Guitar</h3>
+                    <p>Strum the strings and create riffs with acoustic and electric sounds.</p>
+                    <button class="btn-action">Launch Guitar</button>
+                </div>
+                <div class="card" onclick="window.open('https://nfg-instruments-and-mixing.mrdeyomusic.chatgpt.site/', '_blank')">
+                    <div class="game-icon bg-drums">🥁</div>
+                    <h3>Drums</h3>
+                    <p>Build your beat with kicks, snares, hi-hats, and percussion.</p>
+                    <button class="btn-action">Launch Drums</button>
+                </div>
+                <div class="card" onclick="window.open('https://nfg-instruments-and-mixing.mrdeyomusic.chatgpt.site/', '_blank')">
+                    <div class="game-icon bg-synth">🎛️</div>
+                    <h3>Synth</h3>
+                    <p>Create modern electronic sounds, pads, and lead synths.</p>
+                    <button class="btn-action">Launch Synth</button>
+                </div>
+                <div class="card" onclick="window.open('https://nfg-instruments-and-mixing.mrdeyomusic.chatgpt.site/', '_blank')">
+                    <div class="game-icon bg-bass">🎻</div>
+                    <h3>Bass</h3>
+                    <p>Lay down the low-end groove with our bass guitar simulator.</p>
+                    <button class="btn-action">Launch Bass</button>
+                </div>
+                <div class="card" onclick="window.open('https://nfg-instruments-and-mixing.mrdeyomusic.chatgpt.site/', '_blank')">
+                    <div class="game-icon bg-mixing">🎚️</div>
+                    <h3>Mixing Desk</h3>
+                    <p>Learn to balance levels, EQ, and effects on a virtual mixing desk.</p>
+                    <button class="btn-action">Launch Mixer</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PAGE 7: ENJOY THE MUSIC                    -->
+    <!-- ========================================== -->
+    <div id="page-enjoy-music" class="page">
+        <section class="section-container">
+            <h2 class="section-title">Enjoy the Music</h2>
+            <p style="text-align: center; color: #aaa; margin-bottom: 50px;">Listen to the official tracks and albums from the 7 Day Music Business.</p>
+            
+            <div class="grid-container">
+                <!-- NEW ALBUM: This Is Me... Then -->
+                <div class="card" onclick="playSong('This Is Me... Then - Jennifer Lopez', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3')">
+                    <img src="https://images.unsplash.com/photo-1619983081563-430f63602796?auto=format&fit=crop&w=600&q=80" alt="This Is Me... Then Album Cover">
+                    <h3>This Is Me... Then</h3>
+                    <p>Artist: Jennifer Lopez</p>
+                    <button class="btn-action">Listen Now</button>
+                </div>
+
+                <!-- Album 1 -->
+                <div class="card" onclick="playSong('Red Day Profile (Full Album)', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3')">
+                    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80" alt="Album Cover 1">
+                    <h3>Red Day Profile (Full Album)</h3>
+                    <p>Artist: Andre Deyo</p>
+                    <button class="btn-action">Listen Now</button>
+                </div>
+                
+                <!-- Album 2 -->
+                <div class="card" onclick="playSong('The Mindset Vol. 1', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3')">
+                    <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=600&q=80" alt="Album Cover 2">
+                    <h3>The Mindset Vol. 1</h3>
+                    <p>Artist: NFG Collective</p>
+                    <button class="btn-action">Listen Now</button>
+                </div>
+                
+                <!-- Album 3 -->
+                <div class="card" onclick="playSong('Foundations (Instrumentals)', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3')">
+                    <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=600&q=80" alt="Album Cover 3">
+                    <h3>Foundations (Instrumentals)</h3>
+                    <p>Artist: The Producers</p>
+                    <button class="btn-action">Listen Now</button>
+                </div>
+                
+                <!-- Album 4 -->
+                <div class="card" onclick="playSong('Business Admin (Hustle Mix)', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3')">
+                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80" alt="Album Cover 4">
+                    <h3>Business Admin (Hustle Mix)</h3>
+                    <p>Artist: The Executives</p>
+                    <button class="btn-action">Listen Now</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PAGE 8: NFG CHARACTERS                     -->
+    <!-- ========================================== -->
+    <div id="page-characters" class="page">
+        <section class="section-container">
+            <h2 class="section-title">NFG Characters</h2>
+            <p style="text-align: center; color: #aaa; margin-bottom: 40px;">Meet the crew behind the 7 Day Music Business. Own them in 3D, or grab the whole squad at a discount.</p>
+
+            <!-- 🎭 BUNDLE OFFER BANNER -->
+            <div class="promo-banner" style="background: linear-gradient(90deg, rgba(212, 175, 55, 0.2) 0%, rgba(255, 45, 85, 0.2) 100%);">
+                <h3>🎭 CHARACTER BUNDLE OFFER 🎭</h3>
+                <p>Get all 4 NFG Characters in one legendary bundle. <span>Save 40%!</span></p>
+                <p style="margin-top: 15px; color: #fff; font-size: 1.15rem;">
+                    Bundle Price: <strong style="color: var(--gold); font-size: 1.5rem;">$79.99</strong>
+                    <span style="text-decoration: line-through; color: #666; font-size: 0.95rem; margin-left: 8px;">$134.96</span>
+                </p>
+                <button class="btn-buy-store" style="max-width: 320px; margin: 20px auto 0;" onclick="openPayment('NFG Character Bundle (All 4 Characters)', '79.99', '$134.96')">
+                    Get the Bundle
+                </button>
+            </div>
+
+            <div class="grid-container">
+
+                <!-- NOTES -->
+                <div class="character-card" style="--char-accent: var(--gold);">
+                    <div class="sale-badge">-40%</div>
+                    <div class="character-image-container">
+                        <img src="characters/notes.png" alt="Notes">
+                    </div>
+                    <div class="character-info">
+                        <h3>Notes</h3>
+                        <div class="character-role">The Hustler</div>
+                        <p>The face of NFG. A relentless creator who turned a blank page into a full-blown music empire. Notes is the voice in your head that says "keep going."</p>
+                        <div class="product-price">
+                            <span class="old-price">$49.99</span>
+                            <span class="new-price">$29.99</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn-3d" onclick="open3DViewer('characters/notes.glb', 'Notes', 'characters/notes.png')">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                                View in 3D
+                            </button>
+                            <button class="btn-buy-store" onclick="openPayment('Notes 3D Character', '29.99', '$49.99')">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NOTAS -->
+                <div class="character-card" style="--char-accent: var(--day5);">
+                    <div class="sale-badge">-40%</div>
+                    <div class="character-image-container">
+                        <img src="characters/notas.png" alt="Notas">
+                    </div>
+                    <div class="character-info">
+                        <h3>Notas</h3>
+                        <div class="character-role">The Bilingual Twin</div>
+                        <p>Notes' twin from the other side of the map. Notas speaks the universal language of money and music, bridging cultures one bar at a time.</p>
+                        <div class="product-price">
+                            <span class="old-price">$49.99</span>
+                            <span class="new-price">$29.99</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn-3d" onclick="open3DViewer('characters/notas.glb', 'Notas', 'characters/notas.png')">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                                View in 3D
+                            </button>
+                            <button class="btn-buy-store" onclick="openPayment('Notas 3D Character', '29.99', '$49.99')">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MENTOR -->
+                <div class="character-card" style="--char-accent: var(--day6);">
+                    <div class="sale-badge">-42%</div>
+                    <div class="character-image-container">
+                        <img src="characters/mentor.png" alt="Mentor">
+                    </div>
+                    <div class="character-info">
+                        <h3>Mentor</h3>
+                        <div class="character-role">The OG</div>
+                        <p>Decades of music business wisdom wrapped in a calm, unshakeable presence. When you're lost in the game, the Mentor shows the way.</p>
+                        <div class="product-price">
+                            <span class="old-price">$59.99</span>
+                            <span class="new-price">$34.99</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn-3d" onclick="open3DViewer('characters/mentor.glb', 'Mentor', 'characters/mentor.png')">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                                View in 3D
+                            </button>
+                            <button class="btn-buy-store" onclick="openPayment('Mentor 3D Character', '34.99', '$59.99')">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI -->
+                <div class="character-card" style="--char-accent: var(--day4);">
+                    <div class="sale-badge">-43%</div>
+                    <div class="character-image-container">
+                        <img src="characters/ai.png" alt="AI">
+                    </div>
+                    <div class="character-info">
+                        <h3>AI</h3>
+                        <div class="character-role">The Digital Mind</div>
+                        <p>The machine that never sleeps. AI crunches the data, spots the trends, and works alongside the crew to turn instinct into strategy. The future is already here.</p>
+                        <div class="product-price">
+                            <span class="old-price">$69.99</span>
+                            <span class="new-price">$39.99</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn-3d" onclick="open3DViewer('characters/ai.glb', 'AI', 'characters/ai.png')">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                                View in 3D
+                            </button>
+                            <button class="btn-buy-store" onclick="openPayment('AI 3D Character', '39.99', '$69.99')">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 3D MODEL VIEWER MODAL                      -->
+    <!-- ========================================== -->
+    <div id="viewerModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="viewer-header">
+                <h3 id="viewerTitle">3D Model Viewer</h3>
+                <div class="viewer-controls">
+                    <button class="viewer-btn" id="btnRotate" onclick="toggleRotation()">Auto Rotate: OFF</button>
+                    <button class="viewer-btn" id="btnFullscreen" onclick="toggleFullscreen()">Fullscreen</button>
+                    <span class="close-modal" style="position:relative; top:0; right:0; margin-left:15px;" onclick="closeModal('viewerModal')">&times;</span>
+                </div>
+            </div>
+            
+            <!-- The 3D Model Viewer component -->
+            <model-viewer 
+                id="modelViewer"
+                src="" 
+                alt="A 3D model from the NFG collection"
+                camera-controls 
+                touch-action="pan-y"
+                shadow-intensity="1"
+                environment-image="neutral"
+                exposure="1"
+                auto-rotate-delay="0"
+                rotation-per-second="30deg"
+                style="position: relative;">
+                
+                <!-- 🚨 ERROR MESSAGE IF MODEL FAILS TO LOAD 🚨 -->
+                <div class="viewer-error-msg" id="viewerError">
+                    <h4 style="color:#fff; margin-bottom:10px;">⚠️ Failed to load 3D Model</h4>
+                    <p style="font-size:0.95rem; margin-bottom:15px;">The file is either missing, OR you are opening the HTML file directly from your hard drive.</p>
+                    <p style="font-size:0.95rem;">Browsers block 3D models using <code>file:///</code> for security reasons.</p>
+                    <p style="font-size:0.95rem; margin-top:15px; color:var(--gold); font-weight:bold;">FIX: You MUST use a Local Server (like VS Code Live Server).</p>
+                </div>
+
+                <!-- Loading Spinner (Shows while loading) -->
+                <div slot="progress-bar" class="progress-bar">
+                    <div class="update-bar"></div>
+                </div>
+            </model-viewer>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- AUTH & PAYMENT & MUSIC MODALS              -->
+    <!-- ========================================== -->
+    <div id="musicPlayerModal" class="modal-overlay">
+        <div class="modal-content" style="border-top-color: #ff3b30;">
+            <span class="close-modal" onclick="stopMusic()">&times;</span>
+            
+            <div class="player-visual" id="playerVisual">
+                <div class="vinyl-record"></div>
+                <img src="logo.png.png" alt="Notes For Goats" class="player-logo-overlay">
+            </div>
+
+            <h2 id="playerTitle">Song Title</h2>
+            
+            <audio id="audioPlayer" controls></audio>
+        </div>
+    </div>
+
+    <div id="authModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('authModal')">&times;</span>
+            <div class="modal-tabs">
+                <div class="modal-tab active" id="tab-login" onclick="switchAuthTab('login')">Login</div>
+                <div class="modal-tab" id="tab-register" onclick="switchAuthTab('register')">Register</div>
+            </div>
+            <form id="form-login" onsubmit="event.preventDefault(); alert('Login successful!'); closeModal('authModal');">
+                <div class="form-group"><label>Email Address</label><input type="email" placeholder="Enter your email" required></div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="login-pass" placeholder="Enter your password" required>
+                        <span class="toggle-password" onclick="togglePassword('login-pass', this)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+                    </div>
+                    <a class="forgot-link" onclick="switchAuthTab('forgot')">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn-action">Login</button>
+            </form>
+            <form id="form-register" style="display: none;" onsubmit="event.preventDefault(); checkRegister();">
+                <div class="form-group"><label>Full Name</label><input type="text" placeholder="Andre Deyo" required></div>
+                <div class="form-group"><label>Email Address</label><input type="email" placeholder="Enter your email" required></div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="reg-pass" placeholder="Create a password" required>
+                        <span class="toggle-password" onclick="togglePassword('reg-pass', this)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="reg-confirm" placeholder="Confirm your password" required>
+                        <span class="toggle-password" onclick="togglePassword('reg-confirm', this)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+                    </div>
+                </div>
+                <button type="submit" class="btn-action">Create Account</button>
+            </form>
+            <form id="form-forgot" style="display: none;" onsubmit="event.preventDefault(); alert('Reset link sent to your email!'); switchAuthTab('login');">
+                <p style="color:#aaa; margin-bottom:20px; font-size:0.9rem;">Enter your email and we'll send you a secure link to reset your password.</p>
+                <div class="form-group"><label>Email Address</label><input type="email" placeholder="Enter your email" required></div>
+                <button type="submit" class="btn-action">Send Reset Link</button>
+                <div style="text-align: center; margin-top: 15px;"><a class="forgot-link" onclick="switchAuthTab('login')">Back to Login</a></div>
+            </form>
+        </div>
+    </div>
+
+    <div id="paymentModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('paymentModal')">&times;</span>
+            <div class="secure-badge">🔒 Secure 256-bit SSL Encrypted Checkout</div>
+            <div class="payment-summary">
+                <p style="font-size: 0.9rem; color: #aaa;">Total Amount Due</p>
+                <h4 id="paymentAmount">$0.00</h4>
+                <p id="paymentItemName" style="font-size: 0.9rem; color: var(--gold); margin-top: 6px; font-weight: 600;">3D Asset</p>
+                <p id="paymentOriginal" style="font-size: 0.8rem; color: #777; margin-top: 4px;"></p>
+            </div>
+            <form onsubmit="event.preventDefault(); alert('✅ Payment processed securely for ' + document.getElementById('paymentItemName').innerText + '! Check your email for your download links.'); closeModal('paymentModal');">
+                <div class="form-group"><label>Cardholder Name</label><input type="text" placeholder="Andre Deyo" required></div>
+                <div class="form-group"><label>Card Number</label><input type="text" placeholder="0000 0000 0000 0000" maxlength="19" required></div>
+                <div style="display: flex; gap: 15px;">
+                    <div class="form-group" style="flex: 1;"><label>Expiry Date</label><input type="text" placeholder="MM/YY" maxlength="5" required></div>
+                    <div class="form-group" style="flex: 1;"><label>CVV / CVC</label><input type="text" placeholder="123" maxlength="4" required></div>
+                </div>
+                <div class="card-icons"><span style="font-size: 1.5rem;">💳</span><span style="font-size: 1.5rem;">🟦</span><span style="font-size: 1.5rem;">🟥</span><span style="font-size: 1.5rem;">🟨</span></div>
+                <button type="submit" class="btn-action" style="background: var(--success); color: white;">Pay Securely Now</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT                                 -->
+    <!-- ========================================== -->
+    <script>
+        // --- ROUTING ---
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) targetPage.classList.add('active');
+
+            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active-link'));
+            
+            let activeId = pageId.startsWith('day-') ? 'nav-syllabus' : 'nav-' + pageId;
+            const activeLink = document.getElementById(activeId);
+            if (activeLink) activeLink.classList.add('active-link');
+            
+            window.scrollTo(0, 0);
+        }
+
+        // --- 🚨 AUTO-GENERATE STORE (NFG-I0001 to NFG-I0035) 🚨 ---
+        function populateStore() {
+            const storeGrid = document.getElementById('storeGrid');
+            if (!storeGrid) return;
+            storeGrid.innerHTML = ''; 
+
+            for (let i = 1; i <= 35; i++) {
+                
+                // 🚨 SKIP ASSETS 16 TO 21 AND ASSET 33 🚨
+                if ((i >= 16 && i <= 21) || i === 33) {
+                    continue; 
+                }
+
+                const id = i.toString().padStart(4, '0');
+                
+                // 🚨 FILE PATHS POINT TO THE "Store Models" FOLDER 🚨
+                const imageSrc = `Store Models/NFG-I${id}.png`;
+                const modelSrc = `Store Models/NFG-I${id}.glb`;
+                
+                const title = `NFG Asset ${id}`;
+                const price = (Math.random() * 40 + 10).toFixed(2); 
+                const oldPrice = (price * 1.5).toFixed(2); 
+
+                const cardHTML = `
+                    <div class="product-card">
+                        <div class="sale-badge">-33%</div>
+                        <div class="product-img-wrapper">
+                            <img src="${imageSrc}" alt="${title}" onerror="this.src='https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=600&q=80';">
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">3D Asset / NFG-I${id}</span>
+                            <h3>${title}</h3>
+                            <p>High-quality 3D model from the NFG collection. Ready for your projects.</p>
+                            <div class="product-price">
+                                <span class="old-price">$${oldPrice}</span>
+                                <span class="new-price">$${price}</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-3d" onclick="open3DViewer('${modelSrc}', '${title}', '${imageSrc}')">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                                    View in 3D
+                                </button>
+                                <button class="btn-buy-store" onclick="openPayment('${title}', '${price}', '${oldPrice}')">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                storeGrid.innerHTML += cardHTML;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', populateStore);
+
+
+        // --- 3D VIEWER LOGIC ---
+        const modelViewer = document.getElementById('modelViewer');
+        let isRotating = false;
+
+        function open3DViewer(modelSrc, title, imageSrc) {
+            document.getElementById('viewerTitle').innerText = title;
+            document.getElementById('viewerError').style.display = 'none'; // Hide error
+            modelViewer.poster = imageSrc; // Show image while loading
+            modelViewer.src = modelSrc; // Load model
+            
+            isRotating = false;
+            modelViewer.autoRotate = false;
+            document.getElementById('btnRotate').innerText = "Auto Rotate: OFF";
+            
+            openModal('viewerModal');
+        }
+
+        // Handle model errors
+        modelViewer.addEventListener('error', (event) => {
+            console.error('Error loading model:', event.detail);
+            document.getElementById('viewerError').style.display = 'block';
+        });
+
+        function toggleRotation() {
+            isRotating = !isRotating;
+            modelViewer.autoRotate = isRotating;
+            document.getElementById('btnRotate').innerText = isRotating ? "Auto Rotate: ON" : "Auto Rotate: OFF";
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                modelViewer.requestFullscreen().catch(err => {
+                    alert(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // --- 🛒 UNIFIED PAYMENT / CART LOGIC ---
+        // Used by BOTH store items AND character items
+        function openPayment(itemName, price, originalPrice) {
+            document.getElementById('paymentAmount').innerText = '$' + price;
+            document.getElementById('paymentItemName').innerText = itemName;
+            
+            const originalEl = document.getElementById('paymentOriginal');
+            if (originalPrice && originalPrice !== '0' && originalPrice !== '0.00') {
+                originalEl.innerText = 'Original: ' + originalPrice + '  (You save $' + (parseFloat(originalPrice.replace('$','')) - parseFloat(price)).toFixed(2) + ')';
+                originalEl.style.color = 'var(--success)';
+            } else {
+                originalEl.innerText = '';
+            }
+            
+            openModal('paymentModal');
+        }
+
+        // --- CUSTOM MUSIC PLAYER LOGIC ---
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playerVisual = document.getElementById('playerVisual');
+        const playerTitle = document.getElementById('playerTitle');
+
+        function playSong(title, audioSrc) {
+            playerTitle.innerText = title;
+            audioPlayer.src = audioSrc;
+            openModal('musicPlayerModal');
+            audioPlayer.play().catch(e => console.log("Audio play blocked by browser:", e));
+        }
+
+        function stopMusic() {
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0;
+            closeModal('musicPlayerModal');
+        }
+
+        audioPlayer.addEventListener('play', () => playerVisual.classList.add('playing'));
+        audioPlayer.addEventListener('pause', () => playerVisual.classList.remove('playing'));
+        audioPlayer.addEventListener('ended', () => playerVisual.classList.remove('playing'));
+
+
+        // --- MODAL LOGIC (General) ---
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                if (event.target.id === 'musicPlayerModal') {
+                    stopMusic();
+                } else {
+                    event.target.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        }
+
+        // --- AUTH TABS ---
+        function switchAuthTab(tab) {
+            document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+            if (tab !== 'forgot') {
+                document.getElementById('tab-' + tab).classList.add('active');
+            } else {
+                document.getElementById('tab-login').classList.add('active');
+            }
+            document.getElementById('form-login').style.display = 'none';
+            document.getElementById('form-register').style.display = 'none';
+            document.getElementById('form-forgot').style.display = 'none';
+            document.getElementById('form-' + tab).style.display = 'block';
+        }
+
+        function togglePassword(inputId, iconSpan) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                iconSpan.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>`;
+            } else {
+                input.type = "password";
+                iconSpan.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>`;
+            }
+        }
+
+        function checkRegister() {
+            const pass = document.getElementById('reg-pass').value;
+            const confirm = document.getElementById('reg-confirm').value;
+            if (pass !== confirm) {
+                alert("❌ Passwords do not match! Please try again.");
+                return;
+            }
+            alert("✅ Registration Successful! Please login.");
+            switchAuthTab('login');
+        }
+    </script>
+</body>
+</html>
