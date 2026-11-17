@@ -1,1 +1,4 @@
+git add "your-file-name.ext"
+git commit -m "Add large file"
+git push origin main
 
